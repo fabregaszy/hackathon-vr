@@ -1,0 +1,13 @@
+node_modules/
+npm-debug.log
+*.sw[ponm]
+gh-pages
+build
+
+.idea/
+.sass-cache
+.lock-wscript
+.DS_Store
+Thumbs.db
+npm-debug.log
+.project
