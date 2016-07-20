@@ -27,6 +27,7 @@ if (IS_PRODUCTION) {
 
 module.exports = {
   entry: ENTRY_POINTS,
+	debug: true,
   output: {
     // Bundle will be served at /bundle.js locally.
     filename: 'bundle.js',
