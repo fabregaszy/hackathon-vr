@@ -32,6 +32,11 @@ class BoilerplateScene extends React.Component {
 	}
 
 	expand() {
+		var len = testData.length;
+		for (var i = 0; i < len; i++) {
+			var plane = document.querySelector(`#plane-${i}`);
+		}
+
 		this.setState({
 			allExpand: !this.state.allExpand
 		});
@@ -78,7 +83,7 @@ class BoilerplateScene extends React.Component {
 		var plans = testData.map(function (plan, idx) {
 			var pos_z = (len - idx) * -6;
 			return (
-				<Plan expand={comp.state.allExpand} distanceLv={len - idx} posZ={pos_z} key={plan.year}
+				<Plan expand={comp.state.allExpand} distanceLv={len - idx} posZ={pos_z} key={plan.year} index={idx}
 					  year={plan.year} list={plan.lists} updatePopup={comp.updatePopup} />
 			);
 		});

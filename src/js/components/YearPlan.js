@@ -74,7 +74,7 @@ export default class Plan extends React.Component {
 		};
 		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
 		return (
-			<Entity position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${SPAN}`} scale="1 1 1">
+			<Entity id={`plane-${comp.props.index}`} position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${SPAN}`} scale="1 1 1">
 				{plane}
 
 				<Entity text={`text: ${comp.props.expand?comp.props.year:(comp.props.posZ == SPAN?comp.props.year:'')}; height: 0`}
