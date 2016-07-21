@@ -5,7 +5,10 @@ import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'aframe-text-component';
+
 import 'aframe-draw-component';
+var drawComponent = require("aframe-draw-component").component;
+AFRAME.registerComponent("draw", drawComponent);
 import 'aframe-htmltexture-component';
 
 import Camera from './components/Camera';
@@ -13,7 +16,7 @@ import Cursor from './components/Cursor';
 import Sky from './components/Sky';
 import Plan from './components/YearPlan';
 
-var testData =  require('./test_data_1000_less.json');
+var testData =  require('./test_data_1000_with_title.json');
 testData = testData.slice(0,5).reverse();
 
 const POPUP_WIDTH = 3;
@@ -32,6 +35,8 @@ class BoilerplateScene extends React.Component {
 		this.setState({
 			allExpand: !this.state.allExpand
 		});
+		var popupEntity = document.querySelector('#popup-entity');
+		popupEntity.setAttribute('visible', false);
 	};
 
 
@@ -42,22 +47,29 @@ class BoilerplateScene extends React.Component {
 		document.removeEventListener(this.clickType,this.expand.bind(this), this);
 	}
 	updatePopup(info, pos) {
-		var popupBG = document.querySelector('#popup-bg');
-		popupBG.setAttribute('geometry', { primitive: 'plane', width: POPUP_WIDTH, height: POPUP_HEIGHT });
-		popupBG.setAttribute('position', { x: pos.x + 1.4, y: pos.y - 1.2, z: pos.z });
+		//var popupBG = document.querySelector('#popup-bg');
+		//popupBG.setAttribute('geometry', { primitive: 'plane', width: POPUP_WIDTH, height: POPUP_HEIGHT });
+		//popupBG.setAttribute('position', { x: pos.x + 1.4, y: pos.y - 1.2, z: pos.z });
+        //
+		//var popupPN = document.querySelector('#popup-pn');
+		//popupPN.setAttribute('text', {text: info.pn, height: 0, size: 0.2});
+		//popupPN.setAttribute('position', pos);
+        //
+		//var popupTitle = document.querySelector('#popup-title');
+		//popupTitle.setAttribute('text', {text: info.title || 'Title test', height: 0, size: 0.16});
+		//popupTitle.setAttribute('position', Object.assign({}, pos, {y: pos.y - 0.25}));
 
 		var popupPN = document.querySelector('#popup-pn');
-		popupPN.setAttribute('text', {text: info.pn, height: 0, size: 0.2});
-		popupPN.setAttribute('position', pos);
+		var oldPN = popupPN.innerHTML;
+		popupPN.innerHTML = info.pn;
 
 		var popupTitle = document.querySelector('#popup-title');
-		popupTitle.setAttribute('text', {text: info.title || 'Title test', height: 0, size: 0.16});
-		popupTitle.setAttribute('position', Object.assign({}, pos, {y: pos.y - 0.25}));
-		//var popupPN = document.querySelector('#popup-pn');
-		//popupPN.setAttribute('innerHTML', info.pn);
-        //
-        //var popupEntity = document.querySelector('#popup-entity');
-        //popupEntity.setAttribute('position', pos);
+		popupTitle.innerHTML = info.title;
+
+        var popupEntity = document.querySelector('#popup-entity');
+        popupEntity.setAttribute('position', { x: pos.x + 0.9, y: pos.y - 0.9, z: pos.z });
+		var visible = popupEntity.getAttribute('visible');
+		popupEntity.setAttribute('visible', !visible || oldPN != info.pn);
 	}
 	render() {
 		var comp = this;
@@ -83,13 +95,16 @@ class BoilerplateScene extends React.Component {
 			side: 'double'
 		};
 
+		//<Entity id="popup-bg" geometry={geometry} material={material} position="-100 100 0"></Entity>
+		//<Entity id="popup-pn" text={`text: ''; height: 0; size: 0.2`} material={{}}></Entity>
+		//<Entity id="popup-title" text={`text: ''; height: 0; size: 0.2`} material={{}}></Entity>
+
 		//<a-assets>
 		//	<div id="popup">
-		//		<div id="popup-pn" />
-		//		<div id="popup-title" />
+		//		<div id="popup-pn">PN</div>
+		//		<div id="popup-title">Title</div>
 		//	</div>
 		//</a-assets>
-		//<a-entity id="popup-entity" geometry="primitive: plane" draw="width: 3; height: 3;" htmltexture="asset: #popup"></a-entity>
 		return (
 			<Scene>
 				<Camera><Cursor/></Camera>
@@ -98,9 +113,14 @@ class BoilerplateScene extends React.Component {
 				<Sky/>
 
 				{plans}
-				<Entity id="popup-bg" geometry={geometry} material={material} position="-100 100 0"></Entity>
-				<Entity id="popup-pn" text={`text: ''; height: 0; size: 0.2`} material={{}}></Entity>
-				<Entity id="popup-title" text={`text: ''; height: 0; size: 0.2`} material={{}}></Entity>
+
+				<a-assets>
+					<div id="popup">
+						<div id="popup-pn">PN</div>
+						<div id="popup-title">Title</div>
+					</div>
+				</a-assets>
+				<a-entity id="popup-entity" geometry="primitive: plane" scale="2 2 0" draw="width: 256; height: 256;" htmltexture="asset: #popup"></a-entity>
 			</Scene>
 		);
 		}
