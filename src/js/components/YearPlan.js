@@ -21,8 +21,8 @@ function getXY(si) {
 	var si = parseInt(si);
 	var row = parseInt(si / cols);
 	var col = si % cols;
-	var x = getRandomArbitrary(col*1,(col+1)*1);
-	var y = getRandomArbitrary(row*1,(row+1)*1);
+	var x = getRandom(col*1,(col+1)*1);
+	var y = getRandom(row*1,(row+1)*1);
 	return {x,y}
 
 }
@@ -70,7 +70,7 @@ export default class Plan extends React.Component {
 		return (
 			<Entity position={`${9/-2} ${7/-2} ${pos_z}`} scale="1 1 1">
 				{plane}
-				<a-extity text="text: 2012" size="1" position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} ${pos_z}`}></a-extity>
+				<a-entity text="text: 2012" size="1" position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} ${pos_z}`}></a-entity>
 				{dots}
 			</Entity>
 		);
