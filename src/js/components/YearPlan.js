@@ -1,6 +1,9 @@
 import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
 import 'aframe-text-component';
+import {getRandom} from '../utils';
+import Geometry from './Geometry';
+
 var randomColor = require('random-color');
 
 const colors = [];
@@ -9,14 +12,11 @@ for(let i=0;i<100;i++){
 }
 
 
-const PLAN_WIDTH = 9;
-const PLAN_HEIGHT = 7;
-const rows = 7;
-const cols = 9;
+const PLAN_WIDTH = 8;
+const PLAN_HEIGHT = 10;
+const rows = 8;
+const cols = 10;
 
-function getRandomArbitrary(min, max) {
-	return Math.random() * (max - min) + min;
-}
 function getXY(si) {
 	var si = parseInt(si);
 	var row = parseInt(si / cols);
