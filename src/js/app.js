@@ -20,6 +20,7 @@ class BoilerplateScene extends React.Component {
 		this.state = {
 			allExpand: false
 		}
+		this.clickType = AFRAME.utils.isMobile() ? 'click':'dblclick';
 	}
 
 	expand = () => {
@@ -32,10 +33,10 @@ class BoilerplateScene extends React.Component {
 
 
 	componentDidMount(){
-		document.addEventListener('click',this.expand);
+		document.addEventListener(this.clickType,this.expand);
 	}
 	componentWillUnmount(){
-		document.removeEventListener('click',this.expand);
+		document.removeEventListener(this.clickType,this.expand);
 	}
 	render() {
 		var comp = this;
