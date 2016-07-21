@@ -10,7 +10,7 @@ import Cursor from './components/Cursor';
 import Sky from './components/Sky';
 import Plan from './components/YearPlan';
 
-const testData =  require('./test_data.json');
+const testData =  require('./test_data_1000.json');
 
 
 
@@ -33,9 +33,10 @@ class BoilerplateScene extends React.Component {
 	render() {
 		var comp = this;
 
+		var len = testData.length;
 		var plans = testData.map(function (plan, idx) {
 			return (
-				<Plan distanceLv={idx} key={plan.year} year={plan.year} list={plan.lists}/>
+				<Plan distanceLv={len - idx} key={plan.year} year={plan.year} list={plan.lists}/>
 			);
 		});
 
