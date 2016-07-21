@@ -49,7 +49,7 @@ export default class Plan extends React.Component {
 		var color = colors[Math.min(comp.props.distanceLv, colors.length)];
 		var dots = list.map(function (pnInfo,idx) {
 			var xy = getXY(pnInfo.si);
-			return <Entity geometry="primitive: sphere; radius: 0.15" key={idx}
+			return <Geometry type={pnInfo.ci} key={idx}
 						   position={`${xy.x} ${xy.y} ${pos_z}`}
 					material={{color:color || 'black'}}/>
 		});
