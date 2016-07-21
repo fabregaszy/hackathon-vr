@@ -14,7 +14,7 @@ export default props => {
 		transparent: true
 	};
 	return (
-		<Entity cursor={props} geometry={geometry} material={material} position="0 0 -1">
+		<Entity cursor="maxDistance: 30;" geometry={geometry} material={material} position="0 0 -1">
 			<Animation attribute="scale" begin="click" dur="150" fill="backwards"
 					   to="0 0 0"/>
 		</Entity>
