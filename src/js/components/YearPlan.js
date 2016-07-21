@@ -53,7 +53,7 @@ export default class Plan extends React.Component {
 		var color = colors[Math.min(comp.props.distanceLv, colors.length)];
 		var dots = list.map(function (pnInfo,idx) {
 			var xy = getXY(pnInfo.si);
-			return <Geometry type={pnInfo.ci} key={idx}
+			return <Geometry onClick={(evt)=>comp.mouseHandler(evt,pnInfo,Object.assign({},xy,{z:0}))} type={pnInfo.ci} key={idx}
 						   position={`${xy.x} ${xy.y} 0`}
 					material={{color:colors[pnInfo.ci] || 'black'}}/>
 		});
