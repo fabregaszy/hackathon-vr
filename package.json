@@ -4,6 +4,8 @@
   "description": "A-Frame (VR) with React.",
   "dependencies": {
     "aframe": "^0.2.0",
+    "aframe-draw-component": "^1.4.0",
+    "aframe-htmltexture-component": "^0.2.1",
     "aframe-react": "^1.2.0",
     "aframe-text-component": "^0.3.0",
     "aframe-video-shader": "^0.1.8",
