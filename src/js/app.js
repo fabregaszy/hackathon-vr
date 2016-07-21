@@ -42,10 +42,9 @@ class BoilerplateScene extends React.Component {
 			return (
 				<Scene>
 					<Camera><Cursor/></Camera>
-
+					<a-entity light="type: ambient; color: #999; intensity: 0.1"></a-entity>
+					<a-entity light="type: directional; color: #EEE; intensity: 0.8" position="-1 1 0"></a-entity>
 					<Sky/>
-
-					<Entity light={{type: 'ambient', color: '#FFF'}}/>
 
 					{plans}
 				</Scene>
