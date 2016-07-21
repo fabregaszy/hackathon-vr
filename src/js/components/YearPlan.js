@@ -73,6 +73,11 @@ export default class Plan extends React.Component {
 			side: 'double'
 		};
 		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
+		var animation = <a-animation attribute="position"
+									 dur="2000"
+									 fill="forwards"
+									 to={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${comp.props.posZ}`}
+									 repeat="0"></a-animation>;
 		return (
 			<Entity id={`plane-${comp.props.index}`} position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${SPAN}`} scale="1 1 1">
 				{plane}
@@ -82,11 +87,7 @@ export default class Plan extends React.Component {
 
 				{dots}
 
-				{comp.props.expand?(<a-animation attribute="position"
-												dur="2000"
-												fill="forwards"
-												to={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${comp.props.posZ}`}
-												repeat="0"></a-animation>):''}
+				{comp.props.expand?(animation):''}
 
 			</Entity>
 		);
