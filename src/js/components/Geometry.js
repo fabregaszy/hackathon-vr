@@ -3,76 +3,93 @@ import React from 'react';
 import {getRandomRotate} from '../utils';
 
 const size = 0.3;
-export default props => {
 
-	var geometry = {
-		primitive: 'ring',
-		radiusInner: 0.01,
-		radiusOuter: 0.016
-	};
-	switch (props.type){
-		case 1:
-			geometry = {
-				primitive: 'box',
-				width:size,
-				height:size,
-				depth:size
-			};
-			break;
-		case 2:
-			geometry = {
-				primitive: 'cone',
-				radiusTop:size*0.2,
-				radiusBottom:size/2,
-				height:size
-			};
-			break;
-		case 3:
-			geometry = {
-				primitive: 'cylinder',
-				radius:size/2,
-				height:size
-			};
-			break;
-		case 4:
-			geometry = {
-				primitive: 'torus',
-				radius:size/2,
-				radiusTubular:size/8
-			};
-			break;
-		case 5:
-			geometry = {
-				primitive: 'box',
-				width:size/2,
-				height:size,
-				depth:size/2
-			};
-			break;
-		case 6:
-			geometry = {
-				primitive: 'cylinder',
-				radius:size/2,
-				segmentsRadial:3,
-				height:size
-			};
-			break;
-		case 7:
-		default:
-			geometry = {
-				primitive: 'torus',
-				radius:size/2,
-				radiusTubular:size/8
-			};
-			break;
-
-
+export default class Geometry extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isHover:false
+		}
 	}
 
-	
 
-	return (
-		<Entity rotation={getRandomRotate()} geometry={geometry} {...props}>
-		</Entity>
-	);
+	hoverHandler(evt,isHovering){
+		this.setState({
+			isHover:isHovering
+		});
+	}
+	render() {
+		var comp = this;
+		var props = comp.props;
+
+		var geometry = {
+			primitive: 'sphere',
+		};
+		switch (888){
+			case 1:
+				geometry = {
+					primitive: 'box',
+					width:size,
+					height:size,
+					depth:size
+				};
+				break;
+			case 2:
+				geometry = {
+					primitive: 'cone',
+					radiusTop:size*0.5,
+					radiusBottom:size/2,
+					height:size
+				};
+				break;
+			case 3:
+				geometry = {
+					primitive: 'cylinder',
+					radius:size/2,
+					height:size
+				};
+				break;
+			case 4:
+				geometry = {
+					primitive: 'cone',
+					radiusTop:size*0.01,
+					radiusBottom:size/2,
+					height:size
+				};
+				break;
+			case 5:
+				geometry = {
+					primitive: 'box',
+					width:size/2,
+					height:size,
+					depth:size/2
+				};
+				break;
+			case 6:
+				geometry = {
+					primitive: 'cylinder',
+					radius:size/2,
+					segmentsRadial:3,
+					height:size
+				};
+				break;
+			default:
+				geometry = {
+					primitive: 'sphere',
+					radius:size/2
+				};
+				break;
+
+
+		}
+
+		let isHover = comp.state.isHover;
+		return (
+			<Entity onMouseEnter={(evt)=>comp.hoverHandler(evt,true)}
+					onMouseLeave={(evt)=>comp.hoverHandler(evt,false)}
+					scale={isHover ? '1.2 1.2 1.2':'1 1 1'}
+					rotation={getRandomRotate()} geometry={geometry} {...props}>
+			</Entity>
+		);
+	}
 }

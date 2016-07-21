@@ -41,11 +41,14 @@ export default class Plan extends React.Component {
 	}
 
 
+	mouseHandler(evt,pnInfo,pos){
+		console.info(pnInfo,pos);
+	}
 
 	render() {
 		var comp = this;
 		var list = comp.props.list || [];
-		var pos_z = comp.props.distanceLv * -2;
+		var pos_z = comp.props.distanceLv * -4;
 		var color = colors[Math.min(comp.props.distanceLv, colors.length)];
 		var dots = list.map(function (pnInfo,idx) {
 			var xy = getXY(pnInfo.si);
