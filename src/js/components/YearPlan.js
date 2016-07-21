@@ -12,10 +12,10 @@ for(let i=0;i<100;i++){
 }
 
 
-const PLAN_WIDTH = 9;
-const PLAN_HEIGHT = 7;
-const rows = 7;
-const cols = 9;
+const PLAN_WIDTH = 8;
+const PLAN_HEIGHT = 10;
+const rows = 8;
+const cols = 10;
 
 function getXY(si) {
 	var si = parseInt(si);
