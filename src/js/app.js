@@ -8,6 +8,11 @@ import ReactDOM from 'react-dom';
 import Camera from './components/Camera';
 import Cursor from './components/Cursor';
 import Sky from './components/Sky';
+import Plan from './components/YearPlan';
+
+const testData =  require('./test_data.json');
+
+
 
 class BoilerplateScene extends React.Component {
 	constructor(props) {
@@ -18,7 +23,7 @@ class BoilerplateScene extends React.Component {
 	}
 
 	changeColor = () => {
-		const colors = ['#555','red', 'orange', 'yellow', 'green', 'blue'];
+		const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
 		this.setState({
 			color: colors[Math.floor(Math.random() * colors.length)],
 		});
@@ -26,25 +31,27 @@ class BoilerplateScene extends React.Component {
 
 
 	render() {
-		return (
-			<Scene>
-				<Camera><Cursor/></Camera>
+		var comp = this;
 
-				<Sky material="src:url(./assets/2_no_clouds_8k.jpg);"/>
+		var plans = testData.map(function (plan, idx) {
+			return (
+				<Plan distanceLv={idx} key={plan.year} year={plan.year} list={plan.lists}/>
+			);
+		});
 
-				<Entity light={{type: 'ambient', color: '#888'}}/>
-				<Entity light={{type: 'directional', intensity: 0.5}} position={[-1, 1, 0]}/>
-				<Entity light={{type: 'directional', intensity: 1}} position={[1, 1, 0]}/>
+			return (
+				<Scene>
+					<Camera><Cursor/></Camera>
 
+					<Sky/>
 
-				<Entity geometry="primitive: box" material={{color: this.state.color}}
-						onClick={this.changeColor}
-						position="0 0 -5">
-					<Animation attribute="rotation" dur="5000" repeat="indefinite" to="0 360 360"/>
-				</Entity>
-			</Scene>
-		);
-	}
+					<Entity light={{type: 'ambient', color: '#FFF'}}/>
+
+					{plans}
+				</Scene>
+			);
+		}
+
 }
 
 ReactDOM.render(<BoilerplateScene/>, document.querySelector('.scene-container'));
