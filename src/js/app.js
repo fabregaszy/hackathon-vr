@@ -35,8 +35,9 @@ class BoilerplateScene extends React.Component {
 
 		var len = testData.length;
 		var plans = testData.map(function (plan, idx) {
+			var pos_z = (len - idx) * -6;
 			return (
-				<Plan distanceLv={len - idx} key={plan.year} year={plan.year} list={plan.lists}/>
+				<Plan distanceLv={len - idx} posZ={pos_z} key={plan.year} year={plan.year} list={plan.lists}/>
 			);
 		});
 

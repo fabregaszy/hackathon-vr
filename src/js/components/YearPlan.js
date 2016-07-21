@@ -46,7 +46,7 @@ export default class Plan extends React.Component {
 	render() {
 		var comp = this;
 		var list = comp.props.list || [];
-		var pos_z = (comp.props.distanceLv) * -6;
+		//var pos_z = (comp.props.distanceLv) * -6;
 		var color = colors[Math.min(comp.props.distanceLv, colors.length)];
 		var dots = list.map(function (pnInfo,idx) {
 			var xy = getXY(pnInfo.si);
@@ -68,7 +68,7 @@ export default class Plan extends React.Component {
 		};
 		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
 		return (
-			<Entity position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${pos_z}`} scale="1 1 1">
+			<Entity position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${comp.props.posZ}`} scale="1 1 1">
 				{plane}
 				<a-entity text={`text: ${comp.props.year}; height: 0`} position={`-0.5 ${PLAN_HEIGHT} 0`}  material={{}}></a-entity>
 				{dots}
