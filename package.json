@@ -5,6 +5,7 @@
   "dependencies": {
     "aframe": "^0.2.0",
     "aframe-react": "^1.2.0",
+    "aframe-video-shader": "^0.1.8",
     "babel-polyfill": "^6.3.14",
     "justore": "^1.2.2",
     "react": "15.2.1",
@@ -15,7 +16,7 @@
     "preghpages": "npm run build && rm -rf gh-pages && cp -r src gh-pages && cp index.html build/bundle.js gh-pages",
     "ghpages": "npm run preghpages && ghpages -p gh-pages",
     "gh-pages": "npm run ghpages",
-    "server": "cd src && python -m SimpleHTTPServer 5555",
+    "server": "http-server ./src -p 5555 --cors",
     "dev": "webpack-dev-server -d --content-base src --progress --watch --history-api-fallback --inline --hot --host 0.0.0.0"
   },
   "repository": {
@@ -47,6 +48,7 @@
     "babel-runtime": "^6.3.13",
     "css-loader": "^0.23.0",
     "ghpages": "0.0.3",
+    "http-server": "^0.9.0",
     "json-loader": "^0.5.4",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9",

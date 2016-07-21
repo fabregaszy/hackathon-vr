@@ -1,4 +1,5 @@
 import 'aframe';
+import 'aframe-video-shader'
 import 'babel-polyfill';
 import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
@@ -29,7 +30,7 @@ class BoilerplateScene extends React.Component {
 			<Scene>
 				<Camera><Cursor/></Camera>
 
-				<Sky/>
+				<Sky material="src:url(./assets/2_no_clouds_8k.jpg);"/>
 
 				<Entity light={{type: 'ambient', color: '#888'}}/>
 				<Entity light={{type: 'directional', intensity: 0.5}} position={[-1, 1, 0]}/>
