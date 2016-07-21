@@ -12,10 +12,11 @@ for(let i=0;i<100;i++){
 }
 
 
-const PLAN_WIDTH = 8;
-const PLAN_HEIGHT = 10;
-const rows = 8;
-const cols = 10;
+const PLAN_WIDTH = 10;
+const PLAN_HEIGHT = 8;
+const SIZE_SCALE = 1;
+const rows = PLAN_HEIGHT * SIZE_SCALE;
+const cols = PLAN_WIDTH * SIZE_SCALE;
 
 function getXY(si) {
 	var si = parseInt(si);
@@ -48,7 +49,7 @@ export default class Plan extends React.Component {
 	render() {
 		var comp = this;
 		var list = comp.props.list || [];
-		var pos_z = comp.props.distanceLv * -4;
+		var pos_z = (comp.props.distanceLv) * -6;
 		var color = colors[Math.min(comp.props.distanceLv, colors.length)];
 		var dots = list.map(function (pnInfo,idx) {
 			var xy = getXY(pnInfo.si);
@@ -64,16 +65,15 @@ export default class Plan extends React.Component {
 		};
 		const material = {
 			color: color,
-			opacity: 0.05,
+			opacity: 0.2,
 			transparent: true,
 			side: 'double'
 		};
-		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} ${pos_z}`}></Entity>;
-		//var plane = <a-plane color={color} width={PLAN_WIDTH + 2} height={PLAN_HEIGHT + 2} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} ${pos_z}`} transparent="true" opacity="0.05"></a-plane>
+		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
 		return (
-			<Entity position={`${9/-2} ${7/-2} ${pos_z}`} scale="1 1 1">
+			<Entity position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${pos_z}`} scale="1 1 1">
 				{plane}
-				<a-entity text="text: 2012" size="1" position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} ${pos_z}`}></a-entity>
+				<a-entity text={`text: ${comp.props.year}; height: 0`} position={`-0.5 ${PLAN_HEIGHT} 0`}  material={{}}></a-entity>
 				{dots}
 			</Entity>
 		);
