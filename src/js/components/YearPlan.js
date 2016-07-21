@@ -1,5 +1,8 @@
 import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
+import {getRandom} from '../utils';
+import Geometry from './Geometry';
+
 var randomColor = require('random-color');
 
 const colors = [];
@@ -14,15 +17,12 @@ const PLAN_HEIGHT = 7;
 const rows = 7;
 const cols = 9;
 
-function getRandomArbitrary(min, max) {
-	return Math.random() * (max - min) + min;
-}
 function getXY(si) {
 	var si = parseInt(si);
 	var row = parseInt(si / rows) + 1;
 	var col = si % cols + 1;
-	var x = getRandomArbitrary(col*1,(col+1)*1);
-	var y = getRandomArbitrary(row*1,(row+1)*1);
+	var x = getRandom(col*1,(col+1)*1);
+	var y = getRandom(row*1,(row+1)*1);
 	return {x,y}
 
 }
@@ -46,11 +46,13 @@ export default class Plan extends React.Component {
 		var comp = this;
 		var list = comp.props.list || []
 		var pos_z = comp.props.distanceLv * -2;
+
 		var dots = list.map(function (pnInfo,idx) {
+			var ci = parseInt(pnInfo.ci);
 			var xy = getXY(pnInfo.si);
-			return <Entity geometry="primitive: sphere; radius: 0.15" key={idx}
+			return <Geometry type={ci} key={idx}
 						   position={`${xy.x} ${xy.y} ${pos_z}`}
-					material={{color:colors[pnInfo.ci] || 'black'}}/>
+					material={{color:colors[ci] || 'black'}}/>
 		});
 		return (
 
