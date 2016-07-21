@@ -10,8 +10,8 @@ import Cursor from './components/Cursor';
 import Sky from './components/Sky';
 import Plan from './components/YearPlan';
 
-const testData =  require('./test_data_1000.json');
-
+var testData =  require('./test_data_1000_less.json');
+testData = testData.slice(0,5).reverse();
 
 
 class BoilerplateScene extends React.Component {

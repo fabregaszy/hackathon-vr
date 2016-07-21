@@ -2,7 +2,7 @@ import {Animation, Entity} from 'aframe-react';
 import React from 'react';
 import {getRandomRotate} from '../utils';
 
-const size = 0.3;
+const size = 0.2;
 
 export default class Geometry extends React.Component {
 	constructor(props) {
@@ -87,7 +87,7 @@ export default class Geometry extends React.Component {
 		return (
 			<Entity onMouseEnter={(evt)=>comp.hoverHandler(evt,true)}
 					onMouseLeave={(evt)=>comp.hoverHandler(evt,false)}
-					scale={isHover ? '1.2 1.2 1.2':'1 1 1'}
+					scale={isHover ? '1.4 1.4 1.4':'1 1 1'}
 					rotation={getRandomRotate()} geometry={geometry} {...props}>
 			</Entity>
 		);

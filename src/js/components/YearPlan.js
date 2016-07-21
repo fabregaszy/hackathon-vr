@@ -54,8 +54,8 @@ export default class Plan extends React.Component {
 		var dots = list.map(function (pnInfo,idx) {
 			var xy = getXY(pnInfo.si);
 			return <Geometry type={pnInfo.ci} key={idx}
-						   position={`${xy.x} ${xy.y} ${pos_z}`}
-					material={{color:color || 'black'}}/>
+						   position={`${xy.x} ${xy.y} 0`}
+					material={{color:colors[pnInfo.ci] || 'black'}}/>
 		});
 
 		const geometry = {
