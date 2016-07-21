@@ -2,7 +2,7 @@ import {Animation, Entity} from 'aframe-react';
 import React from 'react';
 import {getRandomRotate} from '../utils';
 
-const size = 0.2;
+const size = 0.15;
 
 export default class Geometry extends React.Component {
 	constructor(props) {

@@ -1,7 +1,7 @@
 import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
 import 'aframe-text-component';
-import {getRandom} from '../utils';
+import {getRandom, getRandomRotate, getHashPoint} from '../utils';
 import Geometry from './Geometry';
 
 var randomColor = require('random-color');
@@ -17,15 +17,16 @@ const PLAN_HEIGHT = 8;
 const SIZE_SCALE = 1;
 const rows = PLAN_HEIGHT * SIZE_SCALE;
 const cols = PLAN_WIDTH * SIZE_SCALE;
+const SPAN = -6;
 
-function getXY(si) {
-	var si = parseInt(si);
+function getXY(pnInfo) {
+	var si = parseInt(pnInfo.si);
 	var row = parseInt(si / cols);
 	var col = si % cols;
-	var x = getRandom(col*1,(col+1)*1);
-	var y = getRandom(row*1,(row+1)*1);
-	return {x,y}
-
+	//var x = getRandom(col*1,(col+1)*1);
+	//var y = getRandom(row*1,(row+1)*1);
+	//return {x,y}
+	return getHashPoint(pnInfo.pn, col*1, (col+1)*1, row*1, (row+1)*1)
 }
 
 function formatXY(xyObj) {
@@ -51,10 +52,10 @@ export default class Plan extends React.Component {
 	render() {
 		var comp = this;
 		var list = comp.props.list || [];
-		//var pos_z = (comp.props.distanceLv) * -6;
+		//var pos_z = (comp.props.distanceLv) * SPAN;
 		var color = colors[Math.min(comp.props.distanceLv, colors.length)];
 		var dots = list.map(function (pnInfo,idx) {
-			var xy = getXY(pnInfo.si);
+			var xy = getXY(pnInfo);
 			return <Geometry onClick={(evt)=>comp.mouseHandler(evt,pnInfo,Object.assign({},xy,{z:0}))} type={pnInfo.ci} key={idx}
 						   position={`${xy.x} ${xy.y} 0`}
 					material={{color:colors[pnInfo.ci] || 'black'}}/>
@@ -73,7 +74,7 @@ export default class Plan extends React.Component {
 		};
 		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
 		return (
-			<Entity position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} -6`} scale="1 1 1">
+			<Entity position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${SPAN}`} scale="1 1 1">
 				{plane}
 				<Entity text={`text: ${comp.props.year}; height: 0`} position={`-0.5 ${PLAN_HEIGHT} 0`}  material={{}}></Entity>
 				{dots}
