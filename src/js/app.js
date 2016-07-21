@@ -18,18 +18,25 @@ class BoilerplateScene extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			color: 'red'
+			allExpand: false
 		}
 	}
 
-	changeColor = () => {
-		const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
-		this.setState({
-			color: colors[Math.floor(Math.random() * colors.length)],
-		});
+	expand = () => {
+		if(!this.state.allExpand){
+			this.setState({
+				allExpand: true
+			});
+		}
 	};
 
 
+	componentDidMount(){
+		document.addEventListener('click',this.expand);
+	}
+	componentWillUnmount(){
+		document.removeEventListener('click',this.expand);
+	}
 	render() {
 		var comp = this;
 
@@ -37,12 +44,12 @@ class BoilerplateScene extends React.Component {
 		var plans = testData.map(function (plan, idx) {
 			var pos_z = (len - idx) * -6;
 			return (
-				<Plan distanceLv={len - idx} posZ={pos_z} key={plan.year} year={plan.year} list={plan.lists}/>
+				<Plan expand={comp.state.allExpand} distanceLv={len - idx} posZ={pos_z} key={plan.year} year={plan.year} list={plan.lists}/>
 			);
 		});
 
 			return (
-				<Scene>
+				<Scene onClick={comp.expand.bind(comp)}>
 					<Camera><Cursor/></Camera>
 					<a-entity light="type: ambient; color: #999; intensity: 0.1"></a-entity>
 					<a-entity light="type: directional; color: #EEE; intensity: 0.8" position="-1 1 0"></a-entity>

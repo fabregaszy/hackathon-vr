@@ -38,13 +38,15 @@ function formatXY(xyObj) {
 export default class Plan extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {}
+		this.state = {
+		}
 	}
 
 
 	mouseHandler(evt,pnInfo,pos){
 		console.info(pnInfo,pos);
 	}
+
 
 	render() {
 		var comp = this;
@@ -71,10 +73,16 @@ export default class Plan extends React.Component {
 		};
 		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
 		return (
-			<Entity position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${comp.props.posZ}`} scale="1 1 1">
+			<Entity position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} -6`} scale="1 1 1">
 				{plane}
-				<a-entity text={`text: ${comp.props.year}; height: 0`} position={`-0.5 ${PLAN_HEIGHT} 0`}  material={{}}></a-entity>
+				<Entity text={`text: ${comp.props.year}; height: 0`} position={`-0.5 ${PLAN_HEIGHT} 0`}  material={{}}></Entity>
 				{dots}
+				{comp.props.expand?(<a-animation attribute="position"
+												dur="2000"
+												fill="forwards"
+												to={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${comp.props.posZ}`}
+												repeat="0"></a-animation>):''}
+
 			</Entity>
 		);
 	}
