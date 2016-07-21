@@ -19,24 +19,25 @@ class BoilerplateScene extends React.Component {
 		super(props);
 		this.state = {
 			allExpand: false
-		}
+		};
 		this.clickType = AFRAME.utils.isMobile() ? 'click':'dblclick';
 	}
 
-	expand = () => {
-		if(!this.state.allExpand){
+	expand() {
+		console.log(this);
+		//if(!this.state.allExpand){
 			this.setState({
-				allExpand: true
+				allExpand: !this.state.allExpand
 			});
-		}
+		//}
 	};
 
 
 	componentDidMount(){
-		document.addEventListener(this.clickType,this.expand);
+		document.addEventListener(this.clickType,this.expand.bind(this), this);
 	}
 	componentWillUnmount(){
-		document.removeEventListener(this.clickType,this.expand);
+		document.removeEventListener(this.clickType,this.expand.bind(this), this);
 	}
 	render() {
 		var comp = this;
@@ -50,7 +51,7 @@ class BoilerplateScene extends React.Component {
 		});
 
 			return (
-				<Scene onClick={comp.expand.bind(comp)}>
+				<Scene>
 					<Camera><Cursor/></Camera>
 					<a-entity light="type: ambient; color: #999; intensity: 0.1"></a-entity>
 					<a-entity light="type: directional; color: #EEE; intensity: 0.8" position="-1 1 0"></a-entity>

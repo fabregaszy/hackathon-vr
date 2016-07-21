@@ -6,12 +6,10 @@ import Geometry from './Geometry';
 
 var randomColor = require('random-color');
 
-const colors = [];
-for(let i=0;i<100;i++){
-	colors.push(randomColor().hexString());
-}
-
-
+const COLOR_LIST_CLUSTER = ["#2DE3CD", "#4400D0", "#2EC54B", "#E4012C", "#FDD901",
+							"#17AFF9", "#1E9797", "#BF0099", "#FB7922", "#9966CC",
+							"#7AD073", "#ED6A67", "#E94C1B", "#0060FF", "#9CC927",
+							"#E93A77", "#B7A500", "#5562AA", "#0EAE6F", "#CFA87A"];
 const PLAN_WIDTH = 10;
 const PLAN_HEIGHT = 8;
 const SIZE_SCALE = 1;
@@ -53,12 +51,12 @@ export default class Plan extends React.Component {
 		var comp = this;
 		var list = comp.props.list || [];
 		//var pos_z = (comp.props.distanceLv) * SPAN;
-		var color = colors[Math.min(comp.props.distanceLv, colors.length)];
+		var color = COLOR_LIST_CLUSTER[Math.min(comp.props.distanceLv, COLOR_LIST_CLUSTER.length)];
 		var dots = list.map(function (pnInfo,idx) {
 			var xy = getXY(pnInfo);
 			return <Geometry onClick={(evt)=>comp.mouseHandler(evt,pnInfo,Object.assign({},xy,{z:0}))} type={pnInfo.ci} key={idx}
 						   position={`${xy.x} ${xy.y} 0`}
-					material={{color:colors[pnInfo.ci] || 'black'}}/>
+					material={{color: COLOR_LIST_CLUSTER[pnInfo.ci] || 'black'}}/>
 		});
 
 		const geometry = {
