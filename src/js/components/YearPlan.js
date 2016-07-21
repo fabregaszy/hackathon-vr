@@ -42,20 +42,22 @@ export default class Plan extends React.Component {
 	}
 
 
-	mouseHandler(evt,pnInfo,pos){
-		console.info(pnInfo,pos);
+	mouseHandler(evt, pnInfo, pos, updatePopup){
+		console.info(pnInfo, pos);
+		pos.x = pos.x - PLAN_WIDTH / 2 + 0.2;
+		pos.y = pos.y - PLAN_HEIGHT / 2 - 0.2;
+		pos.z = pos.z + 0.2;
+		updatePopup(pnInfo, pos);
 	}
 
 
 	render() {
 		var comp = this;
 		var list = comp.props.list || [];
-		//var pos_z = (comp.props.distanceLv) * SPAN;
-		var color = COLOR_LIST_CLUSTER[Math.min(comp.props.distanceLv, COLOR_LIST_CLUSTER.length)];
 		var dots = list.map(function (pnInfo,idx) {
 			var xy = getXY(pnInfo);
-			return <Geometry onClick={(evt)=>comp.mouseHandler(evt,pnInfo,Object.assign({},xy,{z:0}))} type={pnInfo.ci} key={idx}
-						   position={`${xy.x} ${xy.y} 0`}
+			return <Geometry onClick={(evt)=>comp.mouseHandler(evt, pnInfo, Object.assign({},xy,{z:comp.props.expand?comp.props.posZ:SPAN}), comp.props.updatePopup)}
+							 type={pnInfo.ci} key={idx} position={`${xy.x} ${xy.y} 0`}
 					material={{color: COLOR_LIST_CLUSTER[pnInfo.ci] || 'black'}}/>
 		});
 
@@ -65,7 +67,7 @@ export default class Plan extends React.Component {
 			height: PLAN_HEIGHT + 2
 		};
 		const material = {
-			color: color,
+			color: '#3377AA',
 			opacity: 0.2,
 			transparent: true,
 			side: 'double'
@@ -74,8 +76,12 @@ export default class Plan extends React.Component {
 		return (
 			<Entity position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${SPAN}`} scale="1 1 1">
 				{plane}
-				<Entity text={`text: ${comp.props.year}; height: 0`} position={`-0.5 ${PLAN_HEIGHT} 0`}  material={{}}></Entity>
+
+				<Entity text={`text: ${comp.props.expand?comp.props.year:(comp.props.posZ == SPAN?comp.props.year:'')}; height: 0`}
+						position={`-0.5 ${PLAN_HEIGHT} 0`}  material={{}}></Entity>
+
 				{dots}
+
 				{comp.props.expand?(<a-animation attribute="position"
 												dur="2000"
 												fill="forwards"
