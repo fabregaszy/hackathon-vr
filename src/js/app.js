@@ -21,6 +21,7 @@ testData = testData.slice(0,5).reverse();
 
 const POPUP_WIDTH = 3;
 const POPUP_HEIGHT = 3;
+const KEY_CODE = { '87':'w', '65':'a', '83':'s', '68':'d'};
 
 class BoilerplateScene extends React.Component {
 	constructor(props) {
@@ -47,6 +48,8 @@ class BoilerplateScene extends React.Component {
 
 	componentDidMount(){
 		document.addEventListener(this.clickType,this.expand.bind(this), this);
+		document.addEventListener('keydown', function (event) {
+		})
 	}
 	componentWillUnmount(){
 		document.removeEventListener(this.clickType,this.expand.bind(this), this);
