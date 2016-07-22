@@ -112,7 +112,7 @@ class BoilerplateScene extends React.Component {
 		//</a-assets>
 		return (
 			<Scene>
-				<Camera><Cursor/></Camera>
+				<Camera allExpand={comp.state.allExpand}><Cursor/></Camera>
 				<a-entity light="type: ambient; color: #999; intensity: 0.1"></a-entity>
 				<a-entity light="type: directional; color: #EEE; intensity: 0.8" position="-1 1 0"></a-entity>
 				<Sky/>
