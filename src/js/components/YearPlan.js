@@ -82,7 +82,7 @@ export default React.createClass({
 			transparent: true,
 			side: 'double'
 		};
-		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
+		var plane = <Entity onClick={comp.props.onClick} geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
 		var animation = <Animation attribute="position"
 								   dur="2000"
 								   fill="forwards"

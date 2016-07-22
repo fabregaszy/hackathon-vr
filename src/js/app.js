@@ -47,7 +47,7 @@ class BoilerplateScene extends React.Component {
 
 
 	componentDidMount(){
-		document.addEventListener(this.clickType,this.expand.bind(this), this);
+		//document.addEventListener(this.clickType,this.expand.wbind(this), this);
 		document.addEventListener('keydown', function (event) {
 		})
 	}
@@ -87,7 +87,7 @@ class BoilerplateScene extends React.Component {
 			var pos_z = (len - idx) * -6;
 			return (
 				<Plan expand={comp.state.allExpand} distanceLv={len - idx} posZ={pos_z} key={plan.year} index={idx}
-					  year={plan.year} list={plan.lists} updatePopup={comp.updatePopup} />
+					  year={plan.year} list={plan.lists} updatePopup={comp.updatePopup} onClick={comp.expand.bind(comp)}/>
 			);
 		});
 
