@@ -1,5 +1,6 @@
 import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
+import tweenState from 'react-tween-state';
 import 'aframe-text-component';
 import {getRandom, getRandomRotate, getHashPoint} from '../utils';
 import Geometry from './Geometry';
@@ -34,13 +35,23 @@ function formatXY(xyObj) {
 	}
 }
 
-export default class Plan extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-		}
-	}
+export default React.createClass({
+	mixins: [tweenState.Mixin],
+	expanded: false,
+	getInitialState: function(props) {
+		return { posZ: SPAN };
+	},
+	handleTween: function() {
+		if (this.props.expand == this.expanded)
+			return;
 
+		this.expanded = this.props.expand;
+		this.tweenState('posZ', {
+			easing: tweenState.easingTypes.easeInOutQuad,
+			duration: 20,
+			endValue: SPAN
+		});
+	},
 
 	mouseHandler(evt, pnInfo, pos, updatePopup){
 		console.info(pnInfo, pos);
@@ -48,17 +59,16 @@ export default class Plan extends React.Component {
 		pos.y = pos.y - PLAN_HEIGHT / 2 - 0.2;
 		pos.z = pos.z + 0.2;
 		updatePopup(pnInfo, pos);
-	}
+	},
 
-
-	render() {
+	render: function() {
 		var comp = this;
 		var list = comp.props.list || [];
 		var dots = list.map(function (pnInfo,idx) {
 			var xy = getXY(pnInfo);
 			return <Geometry onClick={(evt)=>comp.mouseHandler(evt, pnInfo, Object.assign({},xy,{z:comp.props.expand?comp.props.posZ:SPAN}), comp.props.updatePopup)}
 							 type={pnInfo.ci} key={idx} position={`${xy.x} ${xy.y} 0`}
-					material={{color: COLOR_LIST_CLUSTER[pnInfo.ci] || 'black'}}/>
+							 material={{color: COLOR_LIST_CLUSTER[pnInfo.ci] || 'black'}}/>
 		});
 
 		const geometry = {
@@ -74,13 +84,17 @@ export default class Plan extends React.Component {
 		};
 		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
 		var animation = <Animation attribute="position"
-			dur="2000"
-			fill="forwards"
-			to={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${comp.props.posZ}`}
-			repeat="0">
+								   dur="2000"
+								   fill="forwards"
+								   to={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${comp.props.posZ}`}
+								   repeat="0"
+								   onAnimationEnd={()=>{
+								comp.expanded = true;
+								comp.state.posZ = comp.props.posZ;
+							}}>
 		</Animation>;
 		return (
-			<Entity id={`plane-${comp.props.index}`} position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${SPAN}`} scale="1 1 1">
+			<Entity id={`plane-${comp.props.index}`} position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${comp.getTweeningValue('posZ')}`} scale="1 1 1">
 				{plane}
 
 				<Entity text={`text: ${comp.props.expand?comp.props.year:(comp.props.posZ == SPAN?comp.props.year:'')}; height: 0`}
@@ -88,10 +102,71 @@ export default class Plan extends React.Component {
 
 				{dots}
 
-				{comp.props.expand?(animation):''}
+				{comp.props.expand?animation:comp.handleTween()}
 
 			</Entity>
 		);
 	}
-}
+});
+
+//export default class Plan extends React.Component {
+//	constructor(props) {
+//		super(props);
+//		this.state = {
+//		}
+//	}
+//
+//
+//	mouseHandler(evt, pnInfo, pos, updatePopup){
+//		console.info(pnInfo, pos);
+//		pos.x = pos.x - PLAN_WIDTH / 2 + 0.2;
+//		pos.y = pos.y - PLAN_HEIGHT / 2 - 0.2;
+//		pos.z = pos.z + 0.2;
+//		updatePopup(pnInfo, pos);
+//	}
+//
+//
+//	render() {
+//		var comp = this;
+//		var list = comp.props.list || [];
+//		var dots = list.map(function (pnInfo,idx) {
+//			var xy = getXY(pnInfo);
+//			return <Geometry onClick={(evt)=>comp.mouseHandler(evt, pnInfo, Object.assign({},xy,{z:comp.props.expand?comp.props.posZ:SPAN}), comp.props.updatePopup)}
+//							 type={pnInfo.ci} key={idx} position={`${xy.x} ${xy.y} 0`}
+//					material={{color: COLOR_LIST_CLUSTER[pnInfo.ci] || 'black'}}/>
+//		});
+//
+//		const geometry = {
+//			primitive: 'plane',
+//			width: PLAN_WIDTH + 2,
+//			height: PLAN_HEIGHT + 2
+//		};
+//		const material = {
+//			color: '#3377AA',
+//			opacity: 0.2,
+//			transparent: true,
+//			side: 'double'
+//		};
+//		var plane = <Entity geometry={geometry} material={material} position={`${PLAN_WIDTH / 2} ${PLAN_HEIGHT / 2} 0` }></Entity>;
+//		var animation = <Animation attribute="position"
+//			dur="2000"
+//			fill="forwards"
+//			to={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${comp.props.posZ}`}
+//			repeat="0">
+//		</Animation>;
+//		return (
+//			<Entity id={`plane-${comp.props.index}`} position={`${PLAN_WIDTH/-2} ${PLAN_HEIGHT/-2} ${SPAN}`} scale="1 1 1">
+//				{plane}
+//
+//				<Entity text={`text: ${comp.props.expand?comp.props.year:(comp.props.posZ == SPAN?comp.props.year:'')}; height: 0`}
+//						position={`-0.5 ${PLAN_HEIGHT} 0`}  material={{}}></Entity>
+//
+//				{dots}
+//
+//				{comp.props.expand?(animation):''}
+//
+//			</Entity>
+//		);
+//	}
+//}
 
