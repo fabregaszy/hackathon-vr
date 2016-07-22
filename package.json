@@ -18,7 +18,7 @@
     "react-tween-state": "^0.1.5"
   },
   "scripts": {
-    "build": "webpack",
+    "demo": "webpack;http-server ./ -p 3333 -c -1 --cors",
     "preghpages": "npm run build && rm -rf gh-pages && cp -r src gh-pages && cp index.html build/bundle.js gh-pages",
     "ghpages": "npm run preghpages && ghpages -p gh-pages",
     "gh-pages": "npm run ghpages",
