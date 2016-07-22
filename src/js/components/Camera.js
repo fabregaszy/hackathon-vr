@@ -18,25 +18,23 @@ var Camera = React.createClass({
 	obAction:function () {
 		this.tweenState('z', {
 			easing: tweenState.easingTypes.easeInOutQuad,
-			duration: 10000,
+			duration: this.props.allExpand ? 10000 : 1500,
 			endValue: this.props.allExpand ? -15 : 0
 		});
 	},
 	componentDidMount:function () {
 
 	},
-	componentWillReceiveProps: function(nextProps) {
+	componentDidUpdate: function() {
 		var comp = this;
 
-		var allExpand = nextProps.allExpand;
-		if(allExpand){
-			setTimeout(()=>this.obAction(),2000);
-		}
+		var allExpand = comp.props.allExpand;
+		setTimeout(()=>this.obAction(),2000);
 	},
 	render: function() {
 		var comp = this;
 		var s = comp.state;
-		isMobile = true;
+
 		return (
 			<Entity position={`${s.x} ${s.y} ${comp.getTweeningValue('z')}`}>
 				<Entity onComponentChanged={comp.cameraChangeHandler} camera="" look-controls="" wasd-controls="" {...comp.props}/>
