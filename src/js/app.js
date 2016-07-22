@@ -29,7 +29,7 @@ class BoilerplateScene extends React.Component {
 		this.state = {
 			allExpand: false
 		};
-		this.clickType = 'dblclick';
+		this.clickType = AFRAME.utils.isMobile() ? 'click':'dblclick';
 	}
 
 	expand() {
