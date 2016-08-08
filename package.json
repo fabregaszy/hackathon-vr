@@ -1,27 +1,33 @@
 {
-  "name": "aframe-react-boilerplate",
+  "name": "hackathon-vr",
   "version": "1.0.0",
-  "description": "Boilerplate for using A-Frame (VR) with React.",
+  "description": "A-Frame (VR) with React.",
   "dependencies": {
     "aframe": "^0.2.0",
+    "aframe-draw-component": "^1.4.0",
+    "aframe-htmltexture-component": "^0.2.1",
     "aframe-react": "^1.2.0",
+    "aframe-text-component": "^0.3.0",
     "aframe-video-shader": "^0.1.8",
     "babel-polyfill": "^6.3.14",
+    "big.js": "^3.1.3",
     "justore": "^1.2.2",
+    "random-color": "^1.0.1",
     "react": "15.2.1",
-    "react-dom": "15.2.1"
+    "react-dom": "15.2.1",
+    "react-tween-state": "^0.1.5"
   },
   "scripts": {
-    "build": "webpack",
+    "demo": "webpack;http-server ./ -p 3333 -c -1 --cors",
     "preghpages": "npm run build && rm -rf gh-pages && cp -r src gh-pages && cp index.html build/bundle.js gh-pages",
     "ghpages": "npm run preghpages && ghpages -p gh-pages",
     "gh-pages": "npm run ghpages",
-    "server": "http-server ./src -p 5555 --cors",
+    "server": "http-server ./src -p 5555 -c -1 --cors",
     "dev": "webpack-dev-server -d --content-base src --progress --watch --history-api-fallback --inline --hot --host 0.0.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ngokevin/aframe-react-boilerplate.git"
+    "url": "git+https://github.com/fabregaszy/hackathon-vr.git"
   },
   "keywords": [
     "aframe",
@@ -32,12 +38,8 @@
     "mozvr",
     "webvr"
   ],
-  "author": "Kevin Ngo <kngo@mozilla.com>",
+  "author": "Hackathon VR Team",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ngokevin/aframe-react-boilerplate/issues"
-  },
-  "homepage": "https://github.com/ngokevin/aframe-react-boilerplate#readme",
   "devDependencies": {
     "babel": "^6.3.13",
     "babel-core": "^6.3.15",
