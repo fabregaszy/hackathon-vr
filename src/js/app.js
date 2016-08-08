@@ -32,7 +32,13 @@ class BoilerplateScene extends React.Component {
 		this.clickType = AFRAME.utils.isMobile() ? 'click':'dblclick';
 	}
 
-	expand() {
+	expand(evt) {
+
+		var enterVrBtn = document.querySelector('.a-enter-vr-button');
+		if(evt.target === enterVrBtn){
+			return false;
+		}
+
 		var len = testData.length;
 		for (var i = 0; i < len; i++) {
 			var plane = document.querySelector(`#plane-${i}`);
