@@ -3,7 +3,7 @@ import React from 'react';
 import store from '../store';
 var tweenState = require('react-tween-state');
 
-var isMobile = AFRAME.utils.isMobile();
+var isMobile = (AFRAME.utils.isMobile || AFRAME.utils.device.isMobile)();
 
 var Camera = React.createClass({
 	mixins: [tweenState.Mixin],
